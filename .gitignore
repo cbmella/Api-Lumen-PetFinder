@@ -1,0 +1,26 @@
+/vendor/
+
+# Environment file
+.env
+
+# Lumen storage
+/storage/logs/
+/storage/framework/
+
+# Cached files
+/bootstrap/cache/
+
+# Composer files
+composer.lock
+/composer.phar
+
+# PHPUnit
+/phpunit.result.cache
+
+# User-specific files
+/.idea/
+/.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
