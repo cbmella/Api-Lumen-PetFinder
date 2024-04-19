@@ -48,11 +48,15 @@ class PetController extends Controller
         return response()->json($pet, 201);
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $pet = $this->petService->getPetById($id);
+        $expand = $request->query('expand', []);
+        $expand = is_array($expand) ? $expand : explode(',', $expand); // Asegura que 'expand' sea un array
+
+        $pet = $this->petService->getPetById($id, $expand);
         return response()->json($pet);
     }
+
 
     public function update(Request $request, $id)
     {

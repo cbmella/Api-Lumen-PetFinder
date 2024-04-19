@@ -17,9 +17,17 @@ class PetRepository implements PetRepositoryInterface
         return Pet::create($data);
     }
 
-    public function findById($id)
+    public function findById($id, $expansions = [])
     {
-        return Pet::findOrFail($id);
+        $query = Pet::where('id', $id);
+
+        foreach ($expansions as $expand) {
+            if (in_array($expand, ['breed'])) { // Asegura que solo se expandan relaciones válidas
+                $query->with($expand);
+            }
+        }
+
+        return $query->firstOrFail();
     }
 
     public function update($id, array $data)

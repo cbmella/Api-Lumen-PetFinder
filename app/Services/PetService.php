@@ -24,9 +24,10 @@ class PetService
         return $this->petRepository->create($data);
     }
 
-    public function getPetById($id)
+
+    public function getPetById($id, $expand = [])
     {
-        return $this->petRepository->findById($id);
+        return $this->petRepository->findById($id, $expand);
     }
 
     public function updatePet($id, array $data)

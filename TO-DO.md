@@ -1,0 +1,3 @@
+- check the /api/v1/pets/latest endpoint
+- complete endpoint documentation /api/v1/pets/{id}
+- expand the other endpoints of type GET

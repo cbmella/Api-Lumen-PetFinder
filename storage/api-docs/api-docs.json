@@ -141,7 +141,7 @@
                     "Pets"
                 ],
                 "summary": "Retrieve a specific pet",
-                "description": "Retrieve details about a specific pet by ID.",
+                "description": "Retrieve details about a specific pet by ID, with optional expansion to include related breed details.",
                 "parameters": [
                     {
                         "name": "id",
@@ -150,6 +150,15 @@
                         "required": true,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "expand",
+                        "in": "query",
+                        "description": "Expand related entities, e.g., 'breed'",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -239,6 +248,154 @@
                     },
                     "404": {
                         "description": "Pet not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/pets/latest": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Retrieve latest pets",
+                "description": "Fetches a list of the most recently added pets in the database.",
+                "responses": {
+                    "200": {
+                        "description": "An array of pets",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/pets/search": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Search pets by specific criteria",
+                "description": "Search for pets based on specific attributes like name, location, status, breed, and other characteristics.",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "The name of the pet",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Location of the pet",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of the pet (e.g., lost, adoption)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "breed_id",
+                        "in": "query",
+                        "description": "ID of the breed",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "age",
+                        "in": "query",
+                        "description": "Age of the pet",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "personality",
+                        "in": "query",
+                        "description": "Personality traits of the pet",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "adoption_requirements",
+                        "in": "query",
+                        "description": "Adoption requirements",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of matching pets",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/pets/search-general": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "General search for pets",
+                "description": "Performs a general search across multiple pet attributes using a single search term.",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "The search term to be used across multiple pet attributes",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of pets that match the search term",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pet"
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

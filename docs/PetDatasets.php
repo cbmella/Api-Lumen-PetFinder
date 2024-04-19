@@ -60,7 +60,7 @@
  * @OA\Get(
  *     path="/api/v1/pets/{id}",
  *     summary="Retrieve a specific pet",
- *     description="Retrieve details about a specific pet by ID.",
+ *     description="Retrieve details about a specific pet by ID, with optional expansion to include related breed details.",
  *     tags={"Pets"},
  *     @OA\Parameter(
  *         name="id",
@@ -68,6 +68,13 @@
  *         required=true,
  *         description="Pet ID",
  *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Parameter(
+ *         name="expand",
+ *         in="query",
+ *         required=false,
+ *         description="Expand related entities, e.g., 'breed'",
+ *         @OA\Schema(type="string")
  *     ),
  *     @OA\Response(
  *         response=200,
@@ -80,6 +87,7 @@
  *     )
  * )
  */
+
 
 /**
  * @OA\Put(
@@ -139,6 +147,113 @@
  * )
  */
 
+/**
+ * @OA\Get(
+ *     path="/api/v1/pets/latest",
+ *     summary="Retrieve latest pets",
+ *     description="Fetches a list of the most recently added pets in the database.",
+ *     tags={"Pets"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="An array of pets",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Pet")
+ *         )
+ *     )
+ * )
+ */
+
+/**
+ * @OA\Get(
+ *     path="/api/v1/pets/search",
+ *     summary="Search pets by specific criteria",
+ *     description="Search for pets based on specific attributes like name, location, status, breed, and other characteristics.",
+ *     tags={"Pets"},
+ *     @OA\Parameter(
+ *         name="name",
+ *         in="query",
+ *         required=false,
+ *         description="The name of the pet",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
+ *         name="location",
+ *         in="query",
+ *         required=false,
+ *         description="Location of the pet",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
+ *         name="status",
+ *         in="query",
+ *         required=false,
+ *         description="Status of the pet (e.g., lost, adoption)",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
+ *         name="breed_id",
+ *         in="query",
+ *         required=false,
+ *         description="ID of the breed",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Parameter(
+ *         name="age",
+ *         in="query",
+ *         required=false,
+ *         description="Age of the pet",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Parameter(
+ *         name="personality",
+ *         in="query",
+ *         required=false,
+ *         description="Personality traits of the pet",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
+ *         name="adoption_requirements",
+ *         in="query",
+ *         required=false,
+ *         description="Adoption requirements",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="An array of matching pets",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Pet")
+ *         )
+ *     )
+ * )
+ */
+
+/**
+ * @OA\Get(
+ *     path="/api/v1/pets/search-general",
+ *     summary="General search for pets",
+ *     description="Performs a general search across multiple pet attributes using a single search term.",
+ *     tags={"Pets"},
+ *     @OA\Parameter(
+ *         name="search",
+ *         in="query",
+ *         required=true,
+ *         description="The search term to be used across multiple pet attributes",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="An array of pets that match the search term",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Pet")
+ *         )
+ *     )
+ * )
+ */
+
 
 /**
  * @OA\Get(
@@ -157,7 +272,7 @@
  * )
  */
 
- /**
+/**
  * @OA\Get(
  *     path="/api/v1/breeds/{id}",
  *     summary="Retrieve a specific breed",
@@ -205,7 +320,7 @@
  * )
  */
 
- /**
+/**
  * @OA\Put(
  *     path="/api/v1/breeds/{id}",
  *     summary="Update a specific breed",
@@ -239,7 +354,7 @@
  * )
  */
 
- /**
+/**
  * @OA\Delete(
  *     path="/api/v1/breeds/{id}",
  *     summary="Delete a specific breed",
