@@ -1,12 +1,14 @@
-version: '3'
+version: '3.7'  # Es buena práctica usar una versión específica
 services:
   app:
     container_name: pet-finder-api
     build: .
+    image: cbm3lla/api-lumen-petfinder-dev:1.0
     volumes:
       - ./:/var/www/html
+      - /var/www/html/vendor  # Esto excluye el directorio vendor del montaje
       - logs:/var/www/html/storage/logs
-      - /home/cesar/Dev/configs/Pet-Finder/api-config/.env:/var/www/html/.env
+      - C:/Users/admin/dev/configs/petfinder/.env:/var/www/html/.env
     ports:
       - "9000:80"
     restart: always
